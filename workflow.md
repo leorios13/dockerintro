@@ -65,4 +65,5 @@ docker run --rm --network [nombre-de-la-red] curlimages/curl -s http://[nombre-d
 docker rm -f svc-emerson svc-miguel svc-leo svc-laura
 docker volume rm biblioteca-del-pueblo
 docker network rm granada samanes las-granjas villa-fatima
+docker rmi -f emersonic/cali-service:v1 mzmiguelwd/miguelimg leorios13/cali-service:v1 lauraceleste/lauraimg
 ```
