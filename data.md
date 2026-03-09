@@ -1,6 +1,6 @@
 # Taller de Docker: Flujo de Trabajo
 
-## 1. Imágenes de los Participantes
+## 1. Imágenes
 
 - **Emerson:** `emersonic/cali-service:v1`
 - **Miguel:** `mzmiguelwd/miguelimg`
