@@ -4,7 +4,7 @@ import os
 app = Flask(__name__)
 
 student = os.getenv("STUDENT_NAME", "Emerson")
-hood = os.getenv("BARRIO", "Limonar")
+hood = os.getenv("BARRIO", "Granada")
 
 @app.get("/")
 def home():
