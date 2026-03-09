@@ -3,8 +3,8 @@ import os
 
 app = Flask(__name__)
 
-student = os.getenv("STUDENT_NAME", "Leonardo")
-hood = os.getenv("BARRIO", "Las Granjas")
+student = os.getenv("STUDENT_NAME", "Laura Celeste")
+hood = os.getenv("BARRIO", "Villa Fatima")
 
 @app.get("/")
 def home():
