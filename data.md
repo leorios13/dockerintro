@@ -1,46 +1,68 @@
-# Nombre de las imágenes
+# Taller de Docker: Flujo de Trabajo
 
-- Emerson: emersonic/cali-service:v1
-- Miguel: mzmiguelwd/miguelimg
-- Leonardo: leorios13/cali-service:v1
-- Laura: lauraceleste/cali-service:v1
+## 1. Imágenes de los Participantes
 
-# Workflow
+- **Emerson:** `emersonic/cali-service:v1`
+- **Miguel:** `mzmiguelwd/miguelimg`
+- **Leonardo:** `leorios13/cali-service:v1`
+- **Laura:** `lauraceleste/cali-service:v1`
 
-1. Creación de las redes
+---
 
-- docker network create granada
-- docker network create samanes
-- docker network create las-granjas
-- docker network create villa-fatima
+## 2. Flujo de Trabajo (Workflow)
 
-2. Creación del Volume compartido
+### Paso 1: Creación de las Redes
 
-- docker volume create biblioteca-del-pueblo
+```bash
+docker network create granada
+docker network create samanes
+docker network create las-granjas
+docker network create villa-fatima
+```
 
-3. Creación de los contenedores basados en las imágenes
+### Paso 2: Creación del Volumen Compartido
 
-- docker run -d --name svc-emerson --network granada -v biblioteca-del-pueblo:/var/log/app -p 1000:8080 emersonic/cali-service:v1
-- docker run -d --name svc-miguel --network samanes -v biblioteca-del-pueblo:/var/log/app -p 1001:8080 mzmiguelwd/miguelimg
-- docker run -d --name svc-leo --network las-granjas -v biblioteca-del-pueblo:/var/log/app -p 1002:8080 leorios13/cali-service:v1
-- - docker run -d --name svc-laura --network villa-fatima -v biblioteca-del-pueblo:/var/log/app -p 1002:8080 leorios13/cali-service:v1
+```bash
+docker volume create biblioteca-del-pueblo
+```
 
-4. Visualizar los logs
+### Paso 3: Creación de los Contenedores
 
-- docker run --rm -v biblioteca-del-pueblo:/data alpine sh -c "tail -n 20 /data/visitas.log"
+```bash
+docker run -d --name svc-emerson --network granada -v biblioteca-del-pueblo:/var/log/app -p 1000:8080 emersonic/cali-service:v1
+docker run -d --name svc-miguel --network samanes -v biblioteca-del-pueblo:/var/log/app -p 1001:8080 mzmiguelwd/miguelimg
+docker run -d --name svc-leo --network las-granjas -v biblioteca-del-pueblo:/var/log/app -p 1002:8080 leorios13/cali-service:v1
+docker run -d --name svc-laura --network villa-fatima -v biblioteca-del-pueblo:/var/log/app -p 1003:8080 lauraceleste/cali-service:v1
+```
 
-5. Realizar los llamados a la api
+### Paso 4: Visualización de los Logs
 
-## Desde el host
+```bash
+docker run --rm -v biblioteca-del-pueblo:/data alpine sh -c "tail -n 20 /data/visitas.log"
+```
 
-- curl http://localhost:[puerto-asignado]
+### Paso 5: Pruebas de Conectividad (Llamados a la API)
 
-## Desde otro contenedor en el mismo barrio
+**Desde el host:**
+*(Nota: Reemplazar `[puerto-asignado]` por 1000, 1001, 1002 o 1003)*
 
-- docker run --rm --network [nombre-de-la-red] curlimages/curl -s http://[nombre-del-contenedor]:[puerto-asignado]/
+```bash
+curl http://localhost:[puerto-asignado]
+```
 
-# Reset
+**Desde otro contenedor en el mismo barrio:**
+*(Nota: Reemplazar `[nombre-de-la-red]` y `[nombre-del-contenedor]` según corresponda)*
 
-- docker rm -f svc-emerson svc-miguel svc-leo
-- docker volume rm biblioteca-del-pueblo
-- docker network rm granada samanes las-granjas
+```bash
+docker run --rm --network [nombre-de-la-red] curlimages/curl -s http://[nombre-del-contenedor]:8080/
+```
+
+---
+
+## 3. Limpieza del Entorno (Reset)
+
+```bash
+docker rm -f svc-emerson svc-miguel svc-leo svc-laura
+docker volume rm biblioteca-del-pueblo
+docker network rm granada samanes las-granjas villa-fatima
+```
