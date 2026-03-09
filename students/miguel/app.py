@@ -2,14 +2,17 @@ from flask import Flask
 import os
 
 app = Flask(__name__)
+
 student = os.getenv("STUDENT_NAME", "Miguel")
 hood = os.getenv("BARRIO", "Samanes de Guadalupe")
 
 @app.get("/")
 def home():
     msg = f"Hola, I am {student} and I live in {hood}"
+
     with open("/var/log/app/visitas.log", "a") as f:
         f.write(msg + "\n")
+
     return msg
 
 @app.get("/health")
