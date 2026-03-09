@@ -6,6 +6,12 @@
 
 # Workflow
 
-- docker run -d --name svc-emerson --network emerson -v biblioteca-del-pueblo:/var/log/app -p 1000:8080 emersonic/cali-service:v1
-- docker run -d --name svc-miguel --network miguel -v biblioteca-del-pueblo:/var/log/app -p 1001:8080 mzmiguelwd/miguelimg
-- docker run -d --name svc-leo --network leo -v biblioteca-del-pueblo:/var/log/app -p 1002:8080 leorios13/cali-service:v1
+## Creación de las redes
+
+- docker network create limonar
+- docker network create samanes
+- docker network create las-granjas
+
+- docker run -d --name svc-emerson --network limonar -v biblioteca-del-pueblo:/var/log/app -p 1000:8080 emersonic/cali-service:v1
+- docker run -d --name svc-miguel --network samanes -v biblioteca-del-pueblo:/var/log/app -p 1001:8080 mzmiguelwd/miguelimg
+- docker run -d --name svc-leo --network las-granjas -v biblioteca-del-pueblo:/var/log/app -p 1002:8080 leorios13/cali-service:v1
